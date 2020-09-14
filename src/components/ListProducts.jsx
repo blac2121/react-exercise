@@ -25,6 +25,31 @@ const SearchField = styled.input`
   font-size: 18px;
 `
 
+const SortContainter = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  width: 80vw;
+  margin: 20px;
+
+  @media (max-width: 500px) {
+    justify-content: center;
+    margin: 50px auto;
+    width: 100%
+  }
+`
+
+const SortLabel = styled.label`
+  margin-right: 20px;
+  font-weight: 700;
+  font-size: 18px;
+`
+
+const SortSelect = styled.select`
+  border: none;
+  font-size: 18px;
+`
+
 const ProductMainContainter = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -124,15 +149,15 @@ const ListProducts = (props) => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </SearchContainer>
-      <div className="sort">
-        <label htmlFor="sort">SORT BY</label>
-        <select onChange={(e) => setSortType(e.target.value)}>
+      <SortContainter className="sort">
+        <SortLabel htmlFor="sort">SORT BY:</SortLabel>
+        <SortSelect onChange={(e) => setSortType(e.target.value)}>
           <option value="namesASC">Alphabetically, A-Z</option>
           <option value="namesDesc">Alphabetically, Z-A</option>
           <option value="pricesAsc">Price, low to high</option>
           <option value="pricesDesc">Price, high to low</option>
-        </select>
-      </div>
+        </SortSelect>
+      </SortContainter>
       <ProductMainContainter>
         {sortData.filter((product) => {
           if (search === null)

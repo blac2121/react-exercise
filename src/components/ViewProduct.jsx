@@ -5,6 +5,12 @@ import styled from "styled-components";
 const ContentContainer = styled.div`
   display: flex;
   padding: 80px 200px 200px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px 60px;
+  }
 `
 
 const ImgContainer = styled.div`
@@ -25,6 +31,11 @@ const ProductImg = styled.img`
   width: 500px;
   height: 500px;
   padding: 0 40px;
+
+  @media (max-width: 500px) {
+    width: 300px;
+    height: 300px;
+  }
 `
 
 const ProductName = styled.h3`
