@@ -96,8 +96,11 @@ const ListProducts = (props) => {
         pricesDesc: "price",
       };
       const sortField = fields[field];
-      if (sortType === "namesASC" || sortType === "pricesAsc") {
+      if (sortType === "pricesAsc") {
         let sorted = [...props.products].sort((a, b) => a[sortField] - b[sortField]);
+        setSortData(sorted);
+      } else if (sortType === "namesASC") {
+        let sorted = [...props.products].sort((a, b) => a[sortField].localeCompare(b[sortField]));
         setSortData(sorted);
       } else if (sortType === "namesDesc") {
         let sorted = [...props.products].sort((a, b) => b[sortField].localeCompare(a[sortField]));
