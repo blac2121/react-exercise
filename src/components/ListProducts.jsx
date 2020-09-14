@@ -162,7 +162,7 @@ const ListProducts = (props) => {
         {sortData.filter((product) => {
           if (search === null)
             return product
-          else if (product.name.includes(search)) 
+          else if (product.name.toLowerCase().includes(search.toLowerCase())) 
             return product           
           })
         .map((product, index) => {
