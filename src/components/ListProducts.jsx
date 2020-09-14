@@ -7,8 +7,7 @@ const ListContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding-left: 200px;
-  padding-right: 200px;
+  padding: 100px;
 `
 
 const SearchContainer = styled.form`
@@ -16,7 +15,6 @@ const SearchContainer = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 100px;
 `
 
 const SearchField = styled.input`
@@ -30,6 +28,9 @@ const SearchField = styled.input`
 const ProductMainContainter = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 90vw;
+  justify-content: space-evenly;
+  padding: 40px;
 `
 
 const ProductContainer = styled.div`
