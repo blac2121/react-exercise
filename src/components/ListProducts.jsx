@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -28,9 +28,7 @@ const SearchField = styled.input`
 const ProductMainContainter = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 90vw;
   justify-content: space-evenly;
-  padding: 40px;
 `
 
 const ProductContainer = styled.div`
@@ -38,7 +36,7 @@ const ProductContainer = styled.div`
   flex-direction: column;
   max-width: 350px;
   max-height: 450px;
-  margin: 10px;
+  margin: 10px 10px 60px;
   border: 1px solid #E4E6E6;
   box-shadow: 1px 1px 1px 1px #E4E6E6;
   align-items: center;
@@ -49,12 +47,21 @@ const ProductContainer = styled.div`
   &:hover {
     transform: scale(1.01); 
   }
+
+  @media (max-width: 500px) {
+    margin-bottom: 20px;
+  }
 `
 
 const ProductImg = styled.img`
   display: block;
   width: 300px;
   height: 300px;
+
+  @media (max-width: 500px) {
+    width: 185px;
+    height: 185px;
+  }
 `
 
 const ProductName = styled.h3`
@@ -63,6 +70,7 @@ const ProductName = styled.h3`
   color: black;
   padding: 10px;
   margin: 0;
+  text-align: center;
 `
 
 const ProductPrice = styled.h3`
@@ -71,10 +79,37 @@ const ProductPrice = styled.h3`
   font-weight: 100;
   color: black;
   padding: 10px;
+  text-align: center;
 `
 
 const ListProducts = (props) => {
   const [search, setSearch] = useState(null);
+  const [sortData, setSortData] = useState([]);
+  const [sortType, setSortType] = useState("names");
+
+  useEffect(() => {
+    const sortProducts = (field) => {
+      const fields = {
+        namesASC: "name",
+        pricesAsc: "price",
+        namesDesc: "name",
+        pricesDesc: "price",
+      };
+      const sortField = fields[field];
+      if (sortType === "namesASC" || sortType === "pricesAsc") {
+        let sorted = [...props.products].sort((a, b) => a[sortField] - b[sortField]);
+        setSortData(sorted);
+      } else if (sortType === "namesDesc") {
+        let sorted = [...props.products].sort((a, b) => b[sortField].localeCompare(a[sortField]));
+        setSortData(sorted);
+      } else {
+        let sorted = [...props.products].sort((a, b) => b[sortField] - a[sortField]);
+        setSortData(sorted);
+      }
+    }
+    sortProducts(sortType)
+  }, [sortType, props.products]);
+
 
   return (
     <ListContainer>
@@ -87,24 +122,30 @@ const ListProducts = (props) => {
         />
       </SearchContainer>
       <div className="sort">
-
+        <label htmlFor="sort">SORT BY</label>
+        <select onChange={(e) => setSortType(e.target.value)}>
+          <option value="namesASC">Alphabetically, A-Z</option>
+          <option value="namesDesc">Alphabetically, Z-A</option>
+          <option value="pricesAsc">Price, low to high</option>
+          <option value="pricesDesc">Price, high to low</option>
+        </select>
       </div>
       <ProductMainContainter>
-        {props.products.filter((product) => {
+        {sortData.filter((product) => {
           if (search === null)
             return product
           else if (product.name.includes(search)) 
             return product           
           })
         .map((product, index) => {
-          return (
-            <Link to={`/products/${product._id}`} key={index}>
-              <ProductContainer key={product._id}>
-                <ProductImg src={product.imgURL} />
-                <ProductName>{product.name}</ProductName>
-                <ProductPrice>${product.price}</ProductPrice>
-              </ProductContainer>
-            </Link> 
+          return (          
+            <ProductContainer key={product._id}>
+              <Link to={`/products/${product._id}`} key={index}>  
+              <ProductImg src={product.imgURL} />
+              <ProductName>{product.name}</ProductName>
+              <ProductPrice>${product.price}</ProductPrice>
+              </Link>  
+            </ProductContainer>           
           )
         })}
       </ProductMainContainter>
