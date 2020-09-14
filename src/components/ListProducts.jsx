@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding-left: 200px;
+  padding-right: 200px;
+`
+
 const SearchContainer = styled.form`
   display: flex;
   flex-direction: column;
@@ -21,8 +30,6 @@ const SearchField = styled.input`
 const ProductMainContainter = styled.div`
   display: flex;
   flex-wrap: wrap;
-  max-width: 1450px;
-  margin: 0 auto;
 `
 
 const ProductContainer = styled.div`
@@ -69,7 +76,7 @@ const ListProducts = (props) => {
   const [search, setSearch] = useState(null);
 
   return (
-    <div>
+    <ListContainer>
       <SearchContainer>
         <SearchField
           type="text"
@@ -100,7 +107,7 @@ const ListProducts = (props) => {
           )
         })}
       </ProductMainContainter>
-    </div>
+    </ListContainer>
 
 
   )

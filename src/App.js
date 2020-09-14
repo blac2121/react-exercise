@@ -1,11 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
 
 import ListProducts from "./components/ListProducts";
 import ViewProduct from "./components/ViewProduct";
 
 import './App.css';
+
+const MainPage = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const MainHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 1px 0.3px #E4E6E6;
+`
+
+const MainTitle = styled.h1`
+  padding: 20px;
+  font-family: 'Kalam', cursive;
+  color: black;
+`
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -21,12 +39,12 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <header>
+    <MainPage>
+      <MainHeader>
         <Link to="/">
-          <h1>ProductsApp</h1>
+          <MainTitle>ProductsApp</MainTitle>
         </Link> 
-      </header>
+      </MainHeader>
       <main>
         <Switch>
           <Route exact path="/">
@@ -37,7 +55,7 @@ function App() {
           </Route>          
         </Switch>
       </main>
-    </div>
+    </MainPage>
   );
 }
 
