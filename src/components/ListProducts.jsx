@@ -2,12 +2,29 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+const SearchContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+`
+
+const SearchField = styled.input`
+  width: 70vw;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #E4E6E6;
+  margin-bottom: 40px;
+  font-size: 18px;
+`
+
 const ProductMainContainter = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 1450px;
+  max-width: 1450px;
   margin: 0 auto;
 `
+
 const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,6 +56,7 @@ const ProductName = styled.h3`
   padding: 10px;
   margin: 0;
 `
+
 const ProductPrice = styled.h3`
   font-size: 28px;
   margin: 0;
@@ -50,19 +68,16 @@ const ProductPrice = styled.h3`
 const ListProducts = (props) => {
   const [search, setSearch] = useState(null);
 
-  // search.filter(input => input === input.name)
-
-
   return (
     <div>
-      <div className="search">
-        <input
+      <SearchContainer>
+        <SearchField
           type="text"
           placeholder="Search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-      </div>
+      </SearchContainer>
       <div className="sort">
 
       </div>
